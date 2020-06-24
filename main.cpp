@@ -3,14 +3,22 @@
 using namespace std;
 
 template<typename T>
-T multiply(const T &a, const T &b);
+void exchange(T &a, T &b);
 
 int main() {
-    cout << multiply<double>(5 - 1.5, 3 - 1) << endl;
+    int a = 5;
+    int b = 7;
+
+    cout << "a = " << a << endl << "b = " << b << endl;
+    exchange(a, b);
+
+    cout << "a = " << a << endl << "b = " << b << endl;
     return 0;
 }
 
 template<typename T>
-T multiply(const T &a, const T &b) {
-    return a * b;
+void exchange(T &a, T &b) {
+    T temp = a;
+    a = b;
+    b = temp;
 }
