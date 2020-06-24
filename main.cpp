@@ -2,9 +2,7 @@
 
 using namespace std;
 
-template<typename T>
-void display(T &val) {
-    cout << val;
+void display() {
 }
 
 template<typename T, typename...Rest>
@@ -18,5 +16,5 @@ int main() {
 template<typename T, typename...Rest>
 void display(T &val1, Rest...val) {
     cout << val1 << " ";
-    display(val...);
+    return display(val...);
 }
