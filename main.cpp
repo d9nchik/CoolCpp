@@ -6,15 +6,23 @@ using namespace std;
 
 
 int main() {
-    cout << "Enter a word: ";
-    string userWord;
-    cin >> userWord;
-    transform(userWord.begin(), userWord.end(), userWord.begin(), ::tolower);
-    string copyOfWord = userWord;
-    reverse(copyOfWord.begin(), copyOfWord.end());
-    cout << "Word is ";
-    if (userWord != copyOfWord)
-        cout << "not ";
-    cout << "palindrome" << endl;
+    cout << "Enter a sentence: ";
+    int numberOfVowels = 0;
+    const string vowels = "aeiou";
+    string userSentence;
+    getline(cin, userSentence);
+
+    transform(userSentence.begin(), userSentence.end(), userSentence.begin(), ::tolower);
+
+    for (char vowel : vowels) {
+        auto charPos = userSentence.find(vowel);
+        while (charPos != string::npos) {
+            numberOfVowels++;
+            charPos = userSentence.find(vowel, charPos + 1);
+        }
+    }
+
+    cout << "Found " << numberOfVowels << " vowels";
+
     return 0;
 }
