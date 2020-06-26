@@ -1,20 +1,20 @@
 #include <iostream>
+#include <string>
+#include <algorithm>
 
 using namespace std;
 
-void display() {
-}
-
-template<typename T, typename...Rest>
-void display(T &val1, Rest...val);
 
 int main() {
-    int number = 1;
-    display(number, "Hi,", "Bob", number);
-}
-
-template<typename T, typename...Rest>
-void display(T &val1, Rest...val) {
-    cout << val1 << " ";
-    return display(val...);
+    cout << "Enter a word: ";
+    string userWord;
+    cin >> userWord;
+    transform(userWord.begin(), userWord.end(), userWord.begin(), ::tolower);
+    string copyOfWord = userWord;
+    reverse(copyOfWord.begin(), copyOfWord.end());
+    cout << "Word is ";
+    if (userWord != copyOfWord)
+        cout << "not ";
+    cout << "palindrome" << endl;
+    return 0;
 }
