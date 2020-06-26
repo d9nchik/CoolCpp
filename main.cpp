@@ -7,22 +7,14 @@ using namespace std;
 
 int main() {
     cout << "Enter a sentence: ";
-    int numberOfVowels = 0;
-    const string vowels = "aeiou";
     string userSentence;
     getline(cin, userSentence);
 
-    transform(userSentence.begin(), userSentence.end(), userSentence.begin(), ::tolower);
+    transform(userSentence.begin(), userSentence.end(), userSentence.begin(), ::toupper);
 
-    for (char vowel : vowels) {
-        auto charPos = userSentence.find(vowel);
-        while (charPos != string::npos) {
-            numberOfVowels++;
-            charPos = userSentence.find(vowel, charPos + 1);
-        }
-    }
 
-    cout << "Found " << numberOfVowels << " vowels";
+    cout << "Converted every alternate character of a string into uppercase: " << endl;
+    cout << userSentence << endl;
 
     return 0;
 }
