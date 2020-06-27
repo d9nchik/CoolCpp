@@ -64,8 +64,6 @@ int main() {
                 cout << "Incorrect choice!" << endl;
         }
     }
-
-    return 0;
 }
 
 int getVariant() {
