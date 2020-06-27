@@ -1,15 +1,32 @@
 #include <iostream>
-#include <string>
+#include <vector>
 
 using namespace std;
 
 
 int main() {
-    const string str = "Good day String! Today is beautiful!";
-    auto posChar = str.find('a');
-    while (posChar != string::npos) {
-        cout << "\'a\' found at position: " << posChar << endl;
-        posChar = str.find('a', posChar + 1);
+    vector<int> integers;
+    while (true){
+        cout<<"Enter a number: ";
+        int number;
+        cin >> number;
+        integers.push_back(number);
+        char answer;
+        cout<<"Do you want to watch element?(y, n): ";
+        cin >> answer;
+        if (answer=='y'){
+            cout<<"Enter number of index you want to watch: ";
+            int index=0;
+            cin>>index;
+            if (index>=0 && index<integers.size()){
+                cout<<"integers["<<index<<"] = "<<integers[index]<<endl;
+            } else
+                cout<<"Invalid index"<<endl;
+        }
+        cout<<"Do you want to continue?(y, n): ";
+        cin >> answer;
+        if (answer!='y')
+            break;
     }
     return 0;
 }
