@@ -1,39 +1,86 @@
 #include <iostream>
+#include <sstream>
 #include <vector>
 #include <algorithm>
 
 using namespace std;
 
-int main() {
-    vector<int> integers;
-    while (true) {
-        cout << "Enter a number: ";
-        int number;
-        cin >> number;
-        char answer = 'y';
-        auto contains = find(integers.begin(), integers.end(), number);
-        if (contains!=integers.end()) {
-            cout << "Number is already in array, do you want to add it one more time?(y, n): ";
-            cin >> answer;
-        }
-        if (answer == 'y')
-            integers.push_back(number);
-
-        cout << "Do you want to watch element?(y, n): ";
-        cin >> answer;
-        if (answer == 'y') {
-            cout << "Enter number of index you want to watch: ";
-            int index = 0;
-            cin >> index;
-            if (index >= 0 && index < integers.size()) {
-                cout << "integers[" << index << "] = " << integers[index] << endl;
-            } else
-                cout << "Invalid index" << endl;
-        }
-        cout << "Do you want to continue?(y, n): ";
-        cin >> answer;
-        if (answer != 'y')
-            break;
+class Jar {
+    double radius, height;
+    string strOut;
+public:
+    explicit Jar(double radius = 0, double height = 0) : radius(radius), height(height) {
+        stringstream os;
+        os << "Radius: " << radius << "; Height: " << height << endl;
+        strOut = os.str();
     }
+
+    operator const char *() const {
+        return strOut.c_str();
+    }
+};
+
+enum Variants {
+    enter, showIndex, showAll, exitOf
+};
+
+int getVariant();
+
+template<typename T>
+void show(const vector<T> &elements);
+
+
+int main() {
+    vector<Jar> jars;
+    while (true) {
+        switch (getVariant()) {
+            case enter: {
+                cout << "Enter radius of jar: ";
+                double radius;
+                cin >> radius;
+                cout << "Enter height of jar: ";
+                double height;
+                cin >> height;
+                Jar jar(radius, height);
+                jars.push_back(jar);
+                break;
+            }
+            case showIndex:
+                cout << "Enter index: ";
+                int index;
+                cin >> index;
+                if (index >= 0 && index < jars.size())
+                    cout << "jars[ " << index << " ] = " << jars[index];
+                else
+                    cout << "Incorrect index" << endl;
+                break;
+            case showAll:
+                cout << "All elements:" << endl;
+                show(jars);
+                break;
+            case exitOf:
+                exit(0);
+            default:
+                cout << "Incorrect choice!" << endl;
+        }
+    }
+
     return 0;
+}
+
+int getVariant() {
+    cout << "If you want add Jar press - " << Variants::enter << endl;
+    cout << "If you want show index of Jar press - " << Variants::showIndex << endl;
+    cout << "If you want show all of Jar`s press - " << Variants::showAll << endl;
+    cout << "If you want exit press - " << Variants::exitOf << endl;
+    int choice;
+    cout << "Enter your choice: ";
+    cin >> choice;
+    return choice;
+}
+
+template<typename T>
+void show(const vector<T> &elements) {
+    for (int i = 0; i < elements.size(); ++i)
+        cout << ' ' << elements[i] << ' ';
 }
