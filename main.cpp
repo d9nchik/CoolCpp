@@ -8,9 +8,16 @@ template<typename T>
 void show(const T &list);
 
 int main() {
-    vector<int> numbers = {23, 76, 12, 34, 1, 0};
-    list<int> lisNumbers = {25, 40};
-    lisNumbers.insert(lisNumbers.begin(), numbers.cbegin(), numbers.cend());
+    list<string> lisNumbers = {"Danila", "Nikita", "Anton", "Stephan"};
+    cout << "Initial list:" << endl;
+    show(lisNumbers);
+
+    lisNumbers.reverse();
+    cout << "List after reversing:" << endl;
+    show(lisNumbers);
+
+    lisNumbers.sort();
+    cout << "List after sorting:" << endl;
     show(lisNumbers);
 
     return 0;
@@ -18,7 +25,8 @@ int main() {
 
 template<typename T>
 void show(const T &list) {
+    cout << "[ ";
     for (auto iterator = list.cbegin(); iterator != list.cend(); ++iterator)
         cout << *iterator << " ";
-    cout << endl;
+    cout << "]" << endl;
 }
