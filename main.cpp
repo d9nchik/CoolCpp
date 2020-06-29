@@ -1,61 +1,58 @@
 #include <set>
 #include <iostream>
 #include <string>
+#include <utility>
 
 using namespace std;
 
-template<typename T>
-void DisplayContents(const T &container) {
-    for (auto iElement = container.cbegin();
-         iElement != container.cend();
-         ++iElement)
-        cout << *iElement << endl;
-    cout << endl;
-}
+class Dictionary {
+    string word;
+    string meaning;
+public:
+    explicit Dictionary(string word, string meaning="") : word(std::move(word)), meaning(std::move(meaning)) {}
 
-struct ContactItem {
-    string name;
-    string phoneNum;
-    string displayAs;
-
-    ContactItem(const string &nameInit, const string &phone) {
-        name = nameInit;
-        phoneNum = phone;
-        displayAs = (name + ": " + phoneNum);
+    const string &getWord() const {
+        return word;
     }
 
-// used by set::find() given contact list item
-    bool operator==(const ContactItem &itemToCompare) const {
-        return (itemToCompare.phoneNum == this->phoneNum);
+    const string &getMeaning() const {
+        return meaning;
     }
 
-// used to sort
-    bool operator<(const ContactItem &itemToCompare) const {
-        return (this->phoneNum < itemToCompare.phoneNum);
+    bool operator<(const Dictionary &rhs) const {
+        return word < rhs.word;
     }
 
-// Used in DisplayContents via cout
-    operator const char *() const {
-        return displayAs.c_str();
+    bool operator==(const Dictionary &rhs) const {
+        return word == rhs.word;
+    }
+
+    friend ostream &operator<<(ostream &os, const Dictionary &dictionary) {
+        os << "word: " << dictionary.word << " meaning: " << dictionary.meaning;
+        return os;
     }
 };
 
 int main() {
-    set<ContactItem> setContacts;
-    setContacts.insert(ContactItem("Jack Welsch", "+1 7889 879 879"));
-    setContacts.insert(ContactItem("Bill Gates", "+1 97 7897 8799 8"));
-    setContacts.insert(ContactItem("Angi Merkel", "+49 23456 5466"));
-    setContacts.insert(ContactItem("Vlad Putin", "+7 6645 4564 797"));
-    setContacts.insert(ContactItem("John Travolta", "91 234 4564 789"));
-    setContacts.insert(ContactItem("Ben Affleck", "+1 745 641 314"));
-    DisplayContents(setContacts);
-    cout << "Enter a number you wish to search: ";
-    string phoneNumber;
-    getline(cin, phoneNumber);
-    auto contactFound = setContacts.find(ContactItem("", phoneNumber));
-    if (contactFound != setContacts.end()) {
-        cout << "Contact " << phoneNumber << " belongs to " << contactFound->name << endl;
-    } else
-        cout << "Contact not found" << endl;
+    multiset<Dictionary> multiset;
+    Dictionary book("book", "A book is a medium for recording information in"
+                            " the form of writing or images.");
+    Dictionary phone("phone", "A telephone is a telecommunications device that permits two or more users "
+                              "to conduct a conversation when they are too far apart to be heard directly.");
+    Dictionary language("language", "A language is a structured system of communication.");
+
+    multiset.insert(book);
+    multiset.insert(phone);
+    multiset.insert(language);
+
+    cout << "Enter a word you would like to learn meaning: ";
+    string word;
+    getline(cin, word);
+    auto foundWord = multiset.find(Dictionary(word));
+    if (foundWord != multiset.cend())
+        cout << *foundWord << endl;
+    else
+        cout << "Word not found!" << endl;
+
     return 0;
 }
