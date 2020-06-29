@@ -5,54 +5,30 @@
 
 using namespace std;
 
-class Dictionary {
-    string word;
-    string meaning;
-public:
-    explicit Dictionary(string word, string meaning="") : word(std::move(word)), meaning(std::move(meaning)) {}
-
-    const string &getWord() const {
-        return word;
-    }
-
-    const string &getMeaning() const {
-        return meaning;
-    }
-
-    bool operator<(const Dictionary &rhs) const {
-        return word < rhs.word;
-    }
-
-    bool operator==(const Dictionary &rhs) const {
-        return word == rhs.word;
-    }
-
-    friend ostream &operator<<(ostream &os, const Dictionary &dictionary) {
-        os << "word: " << dictionary.word << " meaning: " << dictionary.meaning;
-        return os;
-    }
-};
+template<typename T>
+void show(const T &elements) {
+    cout << "[";
+    for (auto start = elements.cbegin(); start != elements.cend(); ++start)
+        cout << *start << ", ";
+    cout << "]" << endl;
+}
 
 int main() {
-    multiset<Dictionary> multiset;
-    Dictionary book("book", "A book is a medium for recording information in"
-                            " the form of writing or images.");
-    Dictionary phone("phone", "A telephone is a telecommunications device that permits two or more users "
-                              "to conduct a conversation when they are too far apart to be heard directly.");
-    Dictionary language("language", "A language is a structured system of communication.");
+    multiset<int> multiInt = {-1, 3, 8, 100, 1, 0};
+    cout << "Initial capacity of multiset:" << endl;
+    show(multiInt);
+    multiInt.insert(3);
+    cout << "After inserting'3':" << endl;
+    show(multiInt);
 
-    multiset.insert(book);
-    multiset.insert(phone);
-    multiset.insert(language);
+    cout << endl;
 
-    cout << "Enter a word you would like to learn meaning: ";
-    string word;
-    getline(cin, word);
-    auto foundWord = multiset.find(Dictionary(word));
-    if (foundWord != multiset.cend())
-        cout << *foundWord << endl;
-    else
-        cout << "Word not found!" << endl;
+    set<int> setInt = {-1, 3, 8, 100, 1, 0};
+    cout << "Initial capacity of set:" << endl;
+    show(setInt);
+    setInt.insert(3);
+    cout << "After inserting'3':" << endl;
+    show(setInt);
 
     return 0;
 }
