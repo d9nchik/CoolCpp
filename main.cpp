@@ -1,4 +1,4 @@
-#include <set>
+#include <unordered_map>
 #include <iostream>
 #include <string>
 #include <utility>
@@ -14,21 +14,6 @@ void show(const T &elements) {
 }
 
 int main() {
-    multiset<int> multiInt = {-1, 3, 8, 100, 1, 0};
-    cout << "Initial capacity of multiset:" << endl;
-    show(multiInt);
-    multiInt.insert(3);
-    cout << "After inserting'3':" << endl;
-    show(multiInt);
-
-    cout << endl;
-
-    set<int> setInt = {-1, 3, 8, 100, 1, 0};
-    cout << "Initial capacity of set:" << endl;
-    show(setInt);
-    setInt.insert(3);
-    cout << "After inserting'3':" << endl;
-    show(setInt);
-
+    unordered_multimap<string, string> telephoneDirectory;
     return 0;
 }
