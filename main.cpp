@@ -5,25 +5,25 @@
 using namespace std;
 
 template<typename T>
-class ShowData {
-private:
-    unsigned int counter = 0;
+class SortHelper {
 public:
-    void operator()(const T &element) {
+    int operator()(const T &element1, const T &element2) {
+        return element1 < element2;
+    }
+};
+
+template<typename T>
+class ShowData {
+public:
+    void operator()(const T &element) const {
         cout << element << ", ";
-        ++counter;
     }
-
-    unsigned int getCounter() const {
-        return counter;
-    }
-
 };
 
 int main() {
     vector<double> doubles = {3.2, 5.1, 4.7, 8.2, 2.0};
-    ShowData<double> showData = for_each(doubles.cbegin(), doubles.cend(), ShowData<double>());
-    cout << endl;
-    cout << "ShowData() has been called " << showData.getCounter() << " times.";
+    sort(doubles.begin(), doubles.end(), SortHelper<double>());
+    cout<<"Sorting in ascending order:" << endl;
+    for_each(doubles.cbegin(), doubles.cend(), ShowData<double>());
     return 0;
 }
