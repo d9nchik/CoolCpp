@@ -14,11 +14,13 @@ public:
 
 int main() {
     vector<double> doubles = {3.2, 5.1, 4.7, 8.2, 2.0};
-    cout << "Before sorting:" << endl;
+    cout << "Before modifying:" << endl;
     for_each(doubles.cbegin(), doubles.cend(), ShowData<double>());
     cout << endl;
-    cout << "Sorting in ascending order:" << endl;
-    sort(doubles.begin(), doubles.end(), [](const auto &e1, const auto &e2) -> bool { return e1 > e2; });
+    cout << "Enter value you would like to add to every element of sequence: ";
+    double value;
+    cin >> value;
+    for_each(doubles.begin(), doubles.end(), [value](auto &e) { e += value; });
     for_each(doubles.cbegin(), doubles.cend(), ShowData<double>());
     return 0;
 }
