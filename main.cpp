@@ -12,15 +12,15 @@ public:
     }
 };
 
+class CompareString {
+    bool operator()(const string &s1, const string &s2) {
+        string copyS1(s1);
+        string copyS2(s2);
+        transform(copyS1.begin(), copyS1.end(), copyS1.begin(), ::tolower);
+        transform(copyS2.begin(), copyS2.end(), copyS2.begin(), ::tolower);
+        return copyS1 < copyS2;
+    }
+};
+
 int main() {
-    vector<double> doubles = {3.2, 5.1, 4.7, 8.2, 2.0};
-    cout << "Before modifying:" << endl;
-    for_each(doubles.cbegin(), doubles.cend(), ShowData<double>());
-    cout << endl;
-    cout << "Enter value you would like to add to every element of sequence: ";
-    double value;
-    cin >> value;
-    for_each(doubles.begin(), doubles.end(), [value](auto &e) { e += value; });
-    for_each(doubles.cbegin(), doubles.cend(), ShowData<double>());
-    return 0;
 }
