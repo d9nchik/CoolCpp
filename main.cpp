@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <list>
 
 using namespace std;
 
@@ -23,4 +24,16 @@ class CompareString {
 };
 
 int main() {
+    vector<int> vectorInt = {1, 2, 3, 4, 5};
+    cout << "Before inserting:" << endl;
+    for_each(vectorInt.cbegin(), vectorInt.cend(), ShowData<int>());
+    int previousSize = vectorInt.size();
+    cout << endl;
+    list<int> listInt = {6, 7, 8, 9};
+    vectorInt.resize(previousSize + listInt.size());
+    copy(listInt.cbegin(), listInt.cend(), (vectorInt.begin() + previousSize));
+
+    cout << "After inserting:" << endl;
+    for_each(vectorInt.cbegin(), vectorInt.cend(), ShowData<int>());
+    return 0;
 }
