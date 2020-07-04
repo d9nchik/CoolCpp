@@ -1,7 +1,5 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
-#include <list>
+#include <queue>
 
 using namespace std;
 
@@ -13,27 +11,31 @@ public:
     }
 };
 
-class CompareString {
-    bool operator()(const string &s1, const string &s2) {
-        string copyS1(s1);
-        string copyS2(s2);
-        transform(copyS1.begin(), copyS1.end(), copyS1.begin(), ::tolower);
-        transform(copyS2.begin(), copyS2.end(), copyS2.begin(), ::tolower);
-        return copyS1 < copyS2;
+class Person {
+public:
+    int age;
+    bool isFemale;
+
+    bool operator<(const Person &anotherPerson) const {
+        if (age != anotherPerson.age)
+            return age < anotherPerson.age;
+        return !isFemale || anotherPerson.isFemale;
     }
 };
 
 int main() {
-    vector<int> vectorInt = {1, 2, 3, 4, 5};
-    cout << "Before inserting:" << endl;
-    for_each(vectorInt.cbegin(), vectorInt.cend(), ShowData<int>());
-    int previousSize = vectorInt.size();
-    cout << endl;
-    list<int> listInt = {6, 7, 8, 9};
-    vectorInt.resize(previousSize + listInt.size());
-    copy(listInt.cbegin(), listInt.cend(), (vectorInt.begin() + previousSize));
-
-    cout << "After inserting:" << endl;
-    for_each(vectorInt.cbegin(), vectorInt.cend(), ShowData<int>());
+    priority_queue<Person> priorityQueue;
+    priorityQueue.push({25, true});
+    priorityQueue.push({30, false});
+    priorityQueue.push({60, false});
+    priorityQueue.push({60, true});
+    while (!priorityQueue.empty()) {
+        Person person = priorityQueue.top();
+        priorityQueue.pop();
+        cout << "To post goes ";
+        if (person.isFemale)
+            cout << "fe";
+        cout << "male with age " << person.age << endl;
+    }
     return 0;
 }
