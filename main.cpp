@@ -11,7 +11,7 @@ int main() {
     cout << "Seconds bits: " << secondBitset << endl;
 
     bitset<4> resultBitset(firstBitset.to_ulong() + secondBitset.to_ulong());
-    cout << "Result: " << resultBitset << endl;
+    cout << "Result of flip: " << resultBitset.flip() << endl;
 
     return 0;
 }
