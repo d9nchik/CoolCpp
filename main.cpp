@@ -1,19 +1,17 @@
 #include <iostream>
 #include <stack>
+#include <bitset>
 
 using namespace std;
 
 int main() {
-    cout<<"Enter a string: ";
-    string str;
-    getline(cin, str);
-    stack<char> charStack;
-    for(char iterator : str)
-        charStack.push(iterator);
+    bitset<4> firstBitset(9);
+    cout << "First bitset number: " << firstBitset << endl;
+    bitset<4> secondBitset(2);
+    cout << "Seconds bits: " << secondBitset << endl;
 
-    while (!charStack.empty()){
-        cout<<charStack.top();
-        charStack.pop();
-    }
+    bitset<4> resultBitset(firstBitset.to_ulong() + secondBitset.to_ulong());
+    cout << "Result: " << resultBitset << endl;
+
     return 0;
 }
