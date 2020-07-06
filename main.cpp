@@ -1,17 +1,34 @@
 #include <iostream>
-#include <stack>
-#include <bitset>
+#include <memory>
 
 using namespace std;
 
+class Fish {
+public:
+    Fish() { cout << "Fish: Constructed!" << endl; }
+
+    virtual ~Fish() { cout << "Fish: Destructed!" << endl; }
+
+    virtual void swim() const { cout << "Fish swims in water" << endl; }
+};
+
+void makeFishSwim(const unique_ptr<Fish> &inFish) {
+    inFish->swim();
+}
+
+class Carp: public Fish{
+public:
+    void swim() const override {
+        cout<<"Carp swims in freshwater"<<endl;
+    }
+
+    ~Carp() override {
+        cout<<"Carp: destructor"<<endl;
+    }
+};
+
 int main() {
-    bitset<4> firstBitset(9);
-    cout << "First bitset number: " << firstBitset << endl;
-    bitset<4> secondBitset(2);
-    cout << "Seconds bits: " << secondBitset << endl;
-
-    bitset<4> resultBitset(firstBitset.to_ulong() + secondBitset.to_ulong());
-    cout << "Result of flip: " << resultBitset.flip() << endl;
-
+    unique_ptr<Fish> ptr (new Carp);
+    makeFishSwim(ptr);
     return 0;
 }
